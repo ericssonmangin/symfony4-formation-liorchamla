@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Éditer une annonce {% endblock %}
+
+{% form_theme form 'ad/_form_theme.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Éditer une annonce : {{ ad.title }}</h1>
+
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+        <div class="form-group">
+            <button class="btn btn-lg btn-success">{{ button|default('Valider les modifications') }}</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

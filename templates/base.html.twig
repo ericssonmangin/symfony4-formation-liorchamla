@@ -5,19 +5,22 @@
         <title>{% block title %}{% endblock %} - SymBNB</title>
 
         <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/app.css">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {{ include('_nav.html.twig') }}
-        {% block navigation %}{% endblock %}
+        {# Header #}
+        {{ include('layout/header.html.twig') }}
 
-        <div class="container">
-            {% block body %}{% endblock %}
-        </div>
+        {% block body %}{% endblock %}
+
+        {# Header #}
+        {{ include('layout/footer.html.twig') }}
 
         <script src="/js/jquery.min.js"></script>
         <script src="/js/popper.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/app.js"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
