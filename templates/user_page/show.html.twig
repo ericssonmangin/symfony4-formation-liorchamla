@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page de {{ user.fullName }}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-3 text-center py-3">
+                <img src="{{ user.avatar }}" alt="{{ user.fullName }}" class="avatar mb-3">
+                <br>
+                <div class="span badge badge-primary">{{ user.ads | length }} annonces</div>
+            </div>
+            <div class="col-9">
+                <h1>{{ user.fullName }}</h1>
+                {% if user is same as (app.user) %}
+                    <div class="mt-3">
+                        <a href="{{ path('ad.create') }}" class="btn btn-primary mr-2 mb-2">Ajouter une annonce</a>
+                        <a href="{{ path('user.profile') }}" class="btn btn-info mr-2 mb-2">Modifier mes données</a>
+                        <a href="{{ path('user.password') }}" class="btn btn-warning mr-2 mb-2">Modifier mon mot de passe</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <p class="text-justify my-2 p-3">{{ user.description }}</p>
+        </div>
+
+        <hr>
+
+        <div class="row align-items-center">
+            <div class="col-12">
+                <h2 class="mt-4">Toutes les annonces de {{ user.fullName }}</h2>
+
+                {% if user.ads | length > 0 %}
+                    <div class="row">
+                        {% for ad in user.ads %}
+                            {% include 'ad/_list.html.twig' %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        <p class="m-0">Il n'existe aucune annonce de <strong>{{ user.fullName }}</strong> pour le moment...</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

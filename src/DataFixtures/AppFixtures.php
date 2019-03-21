@@ -4,26 +4,65 @@ namespace App\DataFixtures;
 
 use App\Entity\Ad;
 use App\Entity\Picture;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder){
+        $this->encoder = $encoder;
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
 
+        // Fixtures User
+        $users = [];
+        $genders = ['male', 'female'];
+
+        for($i = 1; $i <= 10; $i++){
+            $user = new User();
+
+            $gender = $faker->randomElement($genders);
+            $avatar = 'https://randomuser.me/api/portraits/';
+            $avatarId = $faker->numberBetween(1, 99) . '.jpg';
+            $avatar .= ($gender == 'male' ? 'men/' : 'women/') . $avatarId;
+
+            $user->setFirstName($faker->firstname($gender))
+                ->setLastName($faker->lastName)
+                ->setEmail($faker->email)
+                ->setHash($this->encoder->encodePassword($user, 'admin'))
+                ->setAvatar($avatar)
+                ->setPresentation($faker->paragraph(2))
+                ->setDescription($faker->paragraphs(5, true));
+
+            $manager->persist($user);
+            $users[] = $user;
+        }
+
         // Fixtures Ad
         for($i = 1; $i <= 30; $i++){
-            $ad = new Ad;
+            $ad = new Ad();
 
             $ad->setTitle($faker->sentence(4, true))
                 ->setPrice(mt_rand(40, 200))
                 ->setIntro($faker->paragraph(2))
                 ->setContent($faker->paragraphs(5, true))
                 ->setImage($faker->imageUrl(1000, 400))
-                ->setRooms(mt_rand(1, 5));
+                ->setRooms(mt_rand(1, 5))
+                ->setAuthor($users[mt_rand(0, count($users) - 1)]);
 
             // Fixtures Pictures (2 - 5 per Ad)
             for($j = 1; $j <= mt_rand(2, 5); $j++){

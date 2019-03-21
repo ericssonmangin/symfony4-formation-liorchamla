@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription Membre{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="my-4 text-center">Création de votre compte membre</h1>
+
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+        <div class="form-group">
+            <button class="btn btn-lg btn-success">{{ button|default('Confirmer votre inscription') }}</button>
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

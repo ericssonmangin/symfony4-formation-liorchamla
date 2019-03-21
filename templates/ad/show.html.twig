@@ -51,24 +51,26 @@
 
             </div>
             <div class="col">
+                {% set user = ad.author %}
                 <div class="row">
                     <div class="col-4">
-                        <img src="https://placehold.it/128x128" alt="Avatar de l'utilisateur">
+                        <a href="{{ path('user.show', {'slug': user.slug}) }}">
+                            <img src="{{ user.avatar }}" alt="{{ user.fullName }}" class="avatar avatar-medium">
+                        </a>
                     </div>
                     <div class="col">
-                        <h3>Utilisateur</h3>
-                        <span class="badge badge-primary">3 annonces</span>
+                        <a href="{{ path('user.show', {'slug': user.slug}) }}">
+                            <h3>{{ user.fullName }} </h3>
+                        </a>
+                        <a href="{{ path('user.show', {'slug': user.slug}) }}">
+                            <span class="badge badge-primary">{{ user.ads | length }} annonces</span>
+                        </a>
                     </div>
                 </div>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium cum, ea id ipsum quaerat totam voluptates! Hic molestias nobis recusandae?
+                <p class="text-justify">
+                    {{ user.description }}
                 </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium cum, ea id ipsum quaerat totam voluptates! Hic molestias nobis recusandae?
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium cum, ea id ipsum quaerat totam voluptates! Hic molestias nobis recusandae?
-                </p>
+
             </div>
         </div>
     </div>

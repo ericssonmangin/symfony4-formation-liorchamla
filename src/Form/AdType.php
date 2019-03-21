@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Ad;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -13,23 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AdType extends AbstractType
+class AdType extends AppType
 {
-    /**
-     * getConfig : Configuration label et attr
-     * @param $label
-     * @param $placeholder
-     * @return array
-     */
-    private function getConfig($label, $placeholder)
-    {
-        return [
-            'label' => $label,
-            'attr' => [
-                'placeholder' => $placeholder
-            ]
-        ];
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -54,4 +38,5 @@ class AdType extends AbstractType
             'data_class' => Ad::class,
         ]);
     }
+
 }
