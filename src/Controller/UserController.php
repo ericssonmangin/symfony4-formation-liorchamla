@@ -9,6 +9,7 @@ use App\Form\ProfileType;
 use App\Form\RegisterType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -68,6 +69,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/mon-compte/editer-profil", name="user.profile")
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -97,6 +99,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/mon-compte/modifier-mot-de-passe", name="user.password")
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -150,6 +153,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/mon-compte", name="user.account")
+     * @IsGranted("ROLE_USER")
      */
     public function account()
     {

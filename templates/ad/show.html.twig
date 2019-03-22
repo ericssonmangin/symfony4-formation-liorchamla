@@ -12,7 +12,13 @@
                 <p class="h2">
                    <strong>{{ ad.rooms }} chambres</strong> pour <strong>{{ ad.price }} &euro; </strong> par nuit
                 </p>
+
                 <a href="#" class="btn btn-primary">Réserver</a>
+
+                {% if app.user and app.user == ad.author %}
+                    <a href="{{ path('ad.edit', {'slug': ad.slug}) }}" class="btn btn-info ml-2">Modifier cette annonce</a>
+                    <a href="{{ path('ad.delete', {'slug': ad.slug}) }}" class="btn btn-danger ml-2" onClick="return confirm(`Voulez vous vraiment supprimer cette annonce ?`)">Supprimer cette annonce</a>
+                {% endif %}
             </div>
         </div>
     </div>
