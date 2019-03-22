@@ -162,4 +162,13 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/mon-compte/reservations", name="user.bookings")
+     * @IsGranted("ROLE_USER")
+     */
+    public function bookings()
+    {
+        return $this->render('user/bookings.html.twig');
+    }
+
 }

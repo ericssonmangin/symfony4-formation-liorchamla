@@ -11,16 +11,17 @@ class AppType extends AbstractType
      * getConfig : Configuration label et attr
      * @param $label
      * @param $placeholder
+     * @param array $options
      * @return array
      */
-    protected function getConfig($label, $placeholder)
+    protected function getConfig($label, $placeholder, $options = [])
     {
-        return [
+        return array_merge([
             'label' => $label,
             'attr' => [
                 'placeholder' => $placeholder
             ]
-        ];
+        ], $options);
     }
 
 }
