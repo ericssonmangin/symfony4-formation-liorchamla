@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -61,16 +62,6 @@ class Booking
     private $comment;
 
     /**
-     * Booking constructor.
-     * @throws \Exception
-     */
-    public function __construct()
-    {
-        $this->createdAt = new DateTime();
-        $this->ad = new Ad();
-    }
-
-    /**
      * @ORM\PrePersist
      * @throws \Exception
      */
@@ -80,11 +71,13 @@ class Booking
             $this->createdAt = new DateTime();
         }
         if(empty($this->amount)){
+            /** @noinspection PhpUndefinedMethodInspection */
             $this->amount = $this->ad->getPrice() * $this->getDuration();
         }
     }
 
     public function getDuration(){
+        /** @noinspection PhpUndefinedMethodInspection */
         $diff = $this->endDate->diff($this->startDate);
         return $diff->days;
     }
@@ -94,11 +87,13 @@ class Booking
      */
     public function isBookableDates(){
         // Recup Tableau des jours occupés + Tableau des jours dans reservation
+        /** @noinspection PhpUndefinedMethodInspection */
         $notAvailableDays = $this->ad->getNotAvailableDays();
         $bookingDays = $this->getDays();
 
         // Formattage Jours
         $formatDay = function($day){
+            /** @var DateTime $day */
             return $day->format('Y-m-d');
         };
         $days = array_map($formatDay, $bookingDays);
@@ -117,6 +112,7 @@ class Booking
      * @return array
      */
     public function getDays(){
+        /** @noinspection PhpUndefinedMethodInspection */
         $result = range(
             $this->startDate->getTimestamp(),
             $this->endDate->getTimestamp(),

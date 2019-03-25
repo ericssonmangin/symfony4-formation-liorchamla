@@ -6,15 +6,40 @@
 
 {% block body %}
 
-    <div class="container">
-        <h1>Créer une nouvelle annonce</h1>
+    <div class="container bg-light">
+        <h1 class="my-5">Créer une nouvelle annonce</h1>
 
         {{ form_start(form) }}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-secondary">
+                    <h3>Informations générales</h3>
+                    <hr>
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.price) }}
+                    {{ form_row(form.rooms) }}
+                </div>
+                <div class="alert alert-secondary">
+                    <h3>Détais de l'annonce</h3>
+                    <hr>
+                    {{ form_row(form.intro) }}
+                    {{ form_row(form.content) }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-secondary">
+                    <h3>Images de l'annonce</h3>
+                    <hr>
+                    {{ form_row(form.image) }}
+                    {{ form_row(form.pictures) }}
+                </div>
+            </div>
+        </div>
 
-        {{ form_widget(form) }}
-
-        <div class="form-group">
-            <button class="btn btn-lg btn-success">{{ button|default('Enregistrer cette annonce') }}</button>
+        <div class="alert alert-success clearfix">
+            <h3>Enregistrer et afficher mon annonce en ligne</h3>
+            <p><strong>Vous êtes sur le point d'afficher votre annonce en ligne. Vérifiez bien vos données avant de valider ce formulaire</strong></p>
+            <button class="btn btn-lg btn-primary float-right"> {{ button|default('Enregistrer mon annonce') }} &nbsp; <i class="fa fa-share"></i> </button>
         </div>
         {{ form_end(form) }}
     </div>

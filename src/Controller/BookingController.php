@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Ad;
 use App\Entity\Booking;
+use App\Entity\Comment;
 use App\Form\BookingType;
+use App\Form\CommentType;
 use App\Repository\BookingRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -80,12 +82,34 @@ class BookingController extends AbstractController
      * @Route("/reservation/{id}", name="booking.show")
      * @IsGranted("ROLE_USER")
      * @param Booking $booking
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(Booking $booking)
+    public function show(Booking $booking, Request $request)
     {
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $comment->setAd($booking->getAd())
+                    ->setAuthor($this->getUser());
+
+            $this->manager->persist($comment);
+            $this->manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Merci d'avoir laissé votre avis. Vous pouvez retrouver votre commentaire en ligne sur cette annonce."
+            );
+
+        }
+
         return $this->render('booking/show.html.twig', [
-            'booking' => $booking
+            'booking' => $booking,
+            'form' => $form->createView()
         ]);
     }
 }

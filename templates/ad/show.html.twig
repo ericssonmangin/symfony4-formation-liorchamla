@@ -10,7 +10,7 @@
                 <h1 class="my-4"> {{ ad.title }} </h1>
                 <p>{{ ad.intro }}</p>
                 <p class="h2">
-                   <strong>{{ ad.rooms }} chambres</strong> pour <strong>{{ ad.price }} &euro; </strong> par nuit
+                   <strong>{{ ad.rooms }} chambres</strong> pour <strong>{{ ad.price | number_format(2, '.', ' ') }} &euro; </strong> par nuit
                 </p>
 
                 <a href="{{ path('booking.create', {'slug': ad.slug}) }}" class="btn btn-primary">Réserver</a>
@@ -28,6 +28,7 @@
             <div class="col-12 col-md-8 my-3">
                 {{ ad.content }}
 
+                {# Carousel #}
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         {% for picture in ad.pictures %}
@@ -54,6 +55,39 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
+
+                {# Comments #}
+                {% if ad.comments | length > 0 %}
+                    <h2 class="my-3">Commentaires :</h2>
+
+                    <div class="alert alert-info">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <strong>Note globale de l'annonce :</strong>
+
+                            </div>
+                            <div class="col text-right">
+                                {% include 'inc/rating.html.twig' with {'rating': ad.avgRatings} %}  <br>
+                                <small class="font-italic">note calculée sur {{ ad.comments | length }} avis</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% for comment in ad.comments %}
+                        <div class="bg-light rounded mb-3 py-3 px-3">
+                            <strong>{{ comment.author.firstName }}</strong>, le {{ comment.createdAt | date('d/m/Y') }}
+                            <blockquote>
+                                {{ comment.content }}
+                            </blockquote>
+                            <strong>Note : </strong>
+
+                            {% include 'inc/rating.html.twig' with {'rating': comment.rating} %}
+
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-dark my-3">Aucun commentaire pour cette annonce</div>
+                {% endif %}
 
             </div>
             <div class="col">

@@ -10,8 +10,31 @@
         <h1>Éditer une annonce : {{ ad.title }}</h1>
 
         {{ form_start(form) }}
-
-        {{ form_widget(form) }}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-secondary">
+                    <h3>Informations générales</h3>
+                    <hr>
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.price) }}
+                    {{ form_row(form.rooms) }}
+                </div>
+                <div class="alert alert-secondary">
+                    <h3>Détais de l'annonce</h3>
+                    <hr>
+                    {{ form_row(form.intro) }}
+                    {{ form_row(form.content) }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-secondary">
+                    <h3>Images de l'annonce</h3>
+                    <hr>
+                    {{ form_row(form.image) }}
+                    {{ form_row(form.pictures) }}
+                </div>
+            </div>
+        </div>
 
         <div class="form-group">
             <button class="btn btn-lg btn-success">{{ button|default('Valider les modifications') }}</button>

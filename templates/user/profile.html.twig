@@ -8,13 +8,30 @@
         <h1 class="my-4 text-center">Modifier les données de mon compte</h1>
 
         {{ form_start(form) }}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-secondary">
+                    <h3>Informations générales</h3>
+                    <hr>
+                    {{ form_row(form.firstName) }}
+                    {{ form_row(form.lastName) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.avatar) }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-secondary">
+                    <h3>Détails</h3>
+                    <hr>
+                    {{ form_row(form.presentation) }}
+                    {{ form_row(form.description) }}
 
-        {{ form_widget(form) }}
+                    <p>Valider les modifications de vos données personnelles</p>
+                    <button class="btn btn-lg btn-success">{{ button|default('Envoyer les modifications') }} &nbsp; <i class="fa fa-save"></i> </button>
 
-        <div class="form-group">
-            <button class="btn btn-lg btn-success">{{ button|default('Envoyer les modifications') }}</button>
+                </div>
+            </div>
         </div>
-
         {{ form_end(form) }}
 
     </div>

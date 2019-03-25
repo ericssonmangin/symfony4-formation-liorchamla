@@ -3,8 +3,14 @@
 <div class="col-12 col-md-4">
     <div class="card bg-light mb-3">
         <div class="card-header text-center">
-            {{ ad.rooms }} chambres, <strong>{{ ad.price }} &euro; / nuit</strong> <br>
-            <small>Pas encore noté</small>
+            {{ ad.rooms }} chambres, <strong>{{ ad.price | number_format(2, '.', ' ') }} &euro; par nuit</strong> <br>
+
+            {% if ad.comments | length > 0 %}
+                {% include 'inc/rating.html.twig' with {'rating': ad.avgRatings} %}
+            {% else %}
+                <small class="badge badge-dark">Aucune note disponible</small>
+            {% endif %}
+
         </div>
 
         <a href="{{ urlShow }}">
@@ -20,7 +26,7 @@
             </p>
 
             <div class="text-center">
-                <a href="{{ urlShow }}" class="btn btn-secondary">En savoir plus</a>
+                <a href="{{ urlShow }}" class="btn btn-primary">En savoir plus</a>
             </div>
 
             {% if app.user and app.user == ad.author %}

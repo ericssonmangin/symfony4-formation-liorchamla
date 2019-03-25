@@ -5,16 +5,38 @@
 {% block body %}
 
     <div class="container">
-        <h1 class="my-4 text-center">Création de votre compte membre</h1>
+        <h1 class="my-5">Création de votre compte membre</h1>
 
         {{ form_start(form) }}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-secondary">
+                    <h3>Informations générales</h3>
+                    <hr>
+                    {{ form_row(form.firstName) }}
+                    {{ form_row(form.lastName) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.avatar) }}
+                </div>
+                <div class="alert alert-secondary">
+                    <h3>Mot de passe</h3>
+                    <hr>
+                    {{ form_row(form.hash) }}
+                    {{ form_row(form.passwordConfirm) }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-secondary">
+                    <h3>Détails</h3>
+                    <hr>
+                    {{ form_row(form.presentation) }}
+                    {{ form_row(form.description) }}
 
-        {{ form_widget(form) }}
+                    <button class="btn btn-lg btn-success">{{ button|default('Confirmer votre inscription') }} &nbsp; <i class="fa fa-share"></i> </button>
 
-        <div class="form-group">
-            <button class="btn btn-lg btn-success">{{ button|default('Confirmer votre inscription') }}</button>
+                </div>
+            </div>
         </div>
-
         {{ form_end(form) }}
 
     </div>

@@ -5,21 +5,28 @@
 {% block body %}
 
     <div class="container">
-        <h1>Mes réservations</h1>
-        <div class="alert alert-dark text-center mt-5">
-            <p class="m-0">Retrouvez toutes vos réservations passées et à venir</p>
-        </div>
+        <h1 class="my-5">Mes réservations</h1>
 
         {% for booking in app.user.bookings %}
             {% set ad = booking.ad %}
             <div class="row my-5">
-                <div class="col-4">
+                <div class="col-md-4">
                     <img src="{{ ad.image }}" alt="{{ ad.title }}" class="img-fluid">
+
+                    <div class="mt-3">
+                        {% set comment = ad.commentFromAuthor(app.user) %}
+                        {% if comment is not null %}
+                            <strong>Ma note : {% include 'inc/rating.html.twig' with {'rating': comment.rating} %}  <br></strong>
+                        {% else %}
+                            <p class="mb-0">Vous n'avez pas encore noté ce séjour</p>
+                            <a href="{{ path('booking.show', {'id': booking.id}) }}#comment" class="">Donnez votre avis</a>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="col-8">
+                <div class="col-md-8">
                     <h4>{{ ad.title }}</h4>
                     <p>
-                        Réservation <strong>n°{{ booking.id }}</strong> • {{ booking.amount }} &euro;<br>
+                        Réservation <strong>n°{{ booking.id }}</strong> • {{ booking.amount | number_format(2, '.', ' ') }} &euro;<br>
                         Du {{ booking.startDate | date('d/m/Y') }} au {{ booking.endDate | date('d/m/Y') }}<br>
                     </p>
                     <a href="{{ path('booking.show', {'id': booking.id}) }}" class="btn btn-info">Voir le détail de ma réservation</a>
