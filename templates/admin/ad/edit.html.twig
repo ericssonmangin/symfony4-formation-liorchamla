@@ -1,0 +1,88 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %} Admin - Edition des annonces {% endblock %}
+
+{% form_theme form 'admin/ad/_form_theme.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <h1 class="my-5">Éditer une annonce : {{ ad.title }}</h1>
+
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card bg-light">
+                    <div class="card-header bg-secondary">
+                        <h4 class="card-title">Modifier l'annonce</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ form_widget(form) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card bg-light">
+                    <div class="card-header bg-secondary">
+                        <h4 class="card-title">Réservations</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Utilisateur</th>
+                                    <th>Date de réservation</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for booking in ad.bookings %}
+                                <tr>
+                                    <td class="align-middle">{{ booking.id }}</td>
+                                    <td class="align-middle">{{ booking.booker.fullName }}</td>
+                                    <td class="align-middle">{{ booking.createdAt | date('d/m/Y H:i') }}</td>
+                                    <td class="align-middle">
+                                        <a href="#" class="btn btn-primary"> <i class="fas fa-pen"></i> </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card bg-light mt-5">
+                    <div class="card-header bg-secondary">
+                        <h4 class="card-title">Commentaires</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Utilisateur</th>
+                                <th>Note</th>
+                                <th>Commentaire</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for comment in ad.comments %}
+                                <tr>
+                                    <td class="align-middle">{{ comment.author.fullName }}</td>
+                                    <td class="align-middle">{{ comment.rating }}</td>
+                                    <td class="align-middle">{{ comment.content }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-lg btn-success mt-3">{{ button|default('Valider les modifications') }} &nbsp; <i class="fas fa-share"></i> </button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
