@@ -1,0 +1,55 @@
+@import url('./bootstrap.min.css');
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+div.container{
+    margin-top: 20px;
+}
+
+div.ad-title{
+    padding: 2em;
+    background-size: cover;
+    background-position: center center;
+
+    h1, p{
+        color: white;
+        text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+    }
+    .btn{
+        margin-top: 1em;
+        font-size: 1.5em;
+        line-height: 1.5em;
+    }
+}
+
+div.carousel-caption{
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.avatar{
+    max-width: 128px;
+    max-height: 128px;
+    border-radius: 50%;
+
+    &.avatar-medium{
+        max-width: 90px;
+        max-height: 90px;
+    }
+    &.avatar-mini{
+        max-width: 24px;
+        max-height: 24px;
+    }
+}
+
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover {
+    color: firebrick !important;
+}
+
+span.rating i {
+    color: goldenrod;
+}
+
+.alert{
+    a { text-decoration: none; }
+    .btn { color: white; }
+}
+
